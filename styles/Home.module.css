@@ -52,6 +52,10 @@
   cursor: pointer;
 }
 
+.spacerV {
+  height: 2em;
+}
+
 .demographics {
   align-items: center;
   background: #4eacc5;

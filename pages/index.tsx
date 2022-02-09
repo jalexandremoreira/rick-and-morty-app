@@ -5,6 +5,7 @@ import Image from 'next/image';
 
 import client from '../apollo-client';
 import logo from '../public/images/logo.png';
+import Modal from '../components/modal';
 import styles from '../styles/Home.module.css';
 
 type Props = {
@@ -13,9 +14,10 @@ type Props = {
 
 const Home = ({ locations }: Props) => {
   const [selected, setSelected] = React.useState(0);
-  const [showChars, setShowChars] = React.useState(false);
+  // const [showChars, setShowChars] = React.useState(false);
 
   const calculateGuests = (location: any) => {
+    //isto está mal... tenho que fazer fetch aos characters todos e ver a localizacao vs residencia
     let count = 0;
 
     location?.residents.map((resident: any) => {
@@ -78,7 +80,7 @@ const Home = ({ locations }: Props) => {
 
         <div className={styles.list}>
           {locations.map((location: any, index: number) => (
-            <>
+            <div key={index} style={{ width: '100%' }}>
               {selected !== location.id ? (
                 <div
                   key={index}
@@ -147,6 +149,7 @@ const Home = ({ locations }: Props) => {
                     </svg>
                     {location.dimension}
                   </div>
+                  <div className={styles.spacerV} />
                   {selected === location.id && (
                     <>
                       <div
@@ -191,7 +194,7 @@ const Home = ({ locations }: Props) => {
                           </div>
                         </div>
 
-                        <div style={{ width: 40 }} />
+                        <div style={{ width: 60 }} />
 
                         <div
                           style={{
@@ -209,6 +212,8 @@ const Home = ({ locations }: Props) => {
                         </div>
                       </div>
 
+                      <div className={styles.spacerV} />
+
                       <div
                         style={{
                           display: 'flex',
@@ -216,7 +221,7 @@ const Home = ({ locations }: Props) => {
                           alignItems: 'center',
                         }}
                       >
-                        <p>demographics</p>
+                        <p>resident demographics</p>
                         <div style={{ display: 'flex', flexDirection: 'row' }}>
                           <div className={styles.demographics}>
                             <div className={styles.demoText}>aliens</div>
@@ -241,32 +246,17 @@ const Home = ({ locations }: Props) => {
                         </div>
                       </div>
 
-                      <div>
-                        <div
-                          onClick={(e) => {
-                            e.preventDefault();
-                            setShowChars(!showChars);
-                          }}
-                        >
-                          {showChars
-                            ? 'hide all characters'
-                            : 'show all characters'}
-                        </div>
-                        {showChars &&
-                          location.residents.map((resident: any) => (
-                            <div key={resident.id}>
-                              <p>name {resident.name}</p>
-                              <p>species {resident.species}</p>
-                              <p>gender {resident.gender}</p>
-                              <p>status {resident.status}</p>
-                            </div>
-                          ))}
-                      </div>
+                      <div className={styles.spacerV} />
+
+                      <Modal
+                        characters={location?.residents}
+                        buttonTitle="show all characters"
+                      />
                     </>
                   )}
                 </div>
               )}
-            </>
+            </div>
           ))}
         </div>
       </main>
