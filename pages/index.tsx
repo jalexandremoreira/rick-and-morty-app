@@ -43,9 +43,24 @@ const Home = ({ locations }: Props) => {
         return humans;
       case 'robots':
         return robots;
-
       default:
         return aliens;
+    }
+  };
+
+  const calculateStatus = (location: any, type: string) => {
+    let dead = 0;
+    let alive = 0;
+
+    location?.residents.map((resident: any) => {
+      resident.status === 'Alive' ? (alive += 1) : (dead += 1);
+    });
+
+    switch (type) {
+      case 'dead':
+        return dead;
+      default:
+        return alive;
     }
   };
 
@@ -82,12 +97,24 @@ const Home = ({ locations }: Props) => {
                     onClick={() => setSelected(0)}
                     className={styles.cardHeader}
                   >
-                    <h3 style={{ margin: 0 }}>{location.name}</h3>X
+                    <h3 style={{ margin: 0 }}>{location.name}</h3>
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 23 23"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M2.49991 2.5C2.72261 2.2773 3.02465 2.15219 3.3396 2.15219C3.65454 2.15219 3.95659 2.2773 4.17929 2.5L11.5 9.82063L18.8206 2.50001C19.0433 2.27731 19.3454 2.1522 19.6603 2.1522C19.9752 2.1522 20.2773 2.27731 20.5 2.50001C20.7227 2.72271 20.8478 3.02476 20.8478 3.3397C20.8478 3.65465 20.7227 3.95669 20.5 4.17939L13.1794 11.5L20.5 18.8206C20.7227 19.0433 20.8478 19.3454 20.8478 19.6603C20.8478 19.9753 20.7227 20.2773 20.5 20.5C20.2773 20.7227 19.9753 20.8478 19.6603 20.8478C19.3454 20.8478 19.0433 20.7227 18.8206 20.5L11.5 13.1794L4.17938 20.5C3.95668 20.7227 3.65464 20.8478 3.33969 20.8478C3.02475 20.8478 2.7227 20.7227 2.5 20.5C2.2773 20.2773 2.15219 19.9753 2.15219 19.6603C2.15219 19.3454 2.2773 19.0433 2.5 18.8206L9.82061 11.5L2.49991 4.17938C2.27721 3.95668 2.1521 3.65464 2.1521 3.33969C2.1521 3.02475 2.27721 2.7227 2.49991 2.5Z"
+                        fill="#34343D"
+                      />
+                    </svg>
                   </div>
                   <div style={{ display: 'flex', flexDirection: 'row' }}>
                     <svg
-                      width="20"
-                      height="20"
+                      width="18"
+                      height="18"
                       viewBox="0 0 20 20"
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
@@ -107,8 +134,8 @@ const Home = ({ locations }: Props) => {
                   </div>
                   <div style={{ display: 'flex', flexDirection: 'row' }}>
                     <svg
-                      width="20"
-                      height="20"
+                      width="18"
+                      height="18"
                       viewBox="0 0 20 20"
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
@@ -121,34 +148,121 @@ const Home = ({ locations }: Props) => {
                     {location.dimension}
                   </div>
                   {selected === location.id && (
-                    <div>
-                      <p>total residents {location.residents.length}</p>
-                      <p>total guests {calculateGuests(location)}</p>
-                      <p>aliens {calculateDemographics(location, 'aliens')}</p>
-                      <p>humans {calculateDemographics(location, 'humans')}</p>
-                      <p>robots {calculateDemographics(location, 'robots')}</p>
-
+                    <>
                       <div
-                        onClick={(e) => {
-                          e.preventDefault();
-                          setShowChars(!showChars);
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'row',
+                          width: '100%',
+                          justifyContent: 'center',
                         }}
                       >
-                        {showChars
-                          ? 'hide all characters'
-                          : 'show all characters'}
+                        <div
+                          style={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                          }}
+                        >
+                          <p>residents</p>
+                          <div
+                            style={{ display: 'flex', flexDirection: 'row' }}
+                          >
+                            <div className={styles.demographics}>
+                              <div className={styles.demoText}>total</div>
+                              <div className={styles.demoText}>
+                                {location.residents.length}
+                              </div>
+                            </div>
+                            <div style={{ width: 10 }} />
+                            <div className={styles.demographics}>
+                              <div className={styles.demoText}>alive</div>
+                              <div className={styles.demoText}>
+                                {calculateStatus(location, 'alive')}
+                              </div>
+                            </div>
+                            <div style={{ width: 10 }} />
+                            <div className={styles.demographics}>
+                              <div className={styles.demoText}>dead</div>
+                              <div className={styles.demoText}>
+                                {calculateStatus(location, 'dead')}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div style={{ width: 40 }} />
+
+                        <div
+                          style={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                          }}
+                        >
+                          <p>guests</p>
+                          <div className={styles.demographics}>
+                            <div className={styles.demoText}>
+                              {calculateGuests(location)}
+                            </div>
+                          </div>
+                        </div>
                       </div>
 
-                      {showChars &&
-                        location.residents.map((resident: any) => (
-                          <div key={resident.id}>
-                            <p>name {resident.name}</p>
-                            <p>species {resident.species}</p>
-                            <p>gender {resident.gender}</p>
-                            <p>status {resident.status}</p>
+                      <div
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          alignItems: 'center',
+                        }}
+                      >
+                        <p>demographics</p>
+                        <div style={{ display: 'flex', flexDirection: 'row' }}>
+                          <div className={styles.demographics}>
+                            <div className={styles.demoText}>aliens</div>
+                            <div className={styles.demoText}>
+                              {calculateDemographics(location, 'aliens')}
+                            </div>
                           </div>
-                        ))}
-                    </div>
+                          <div style={{ width: 10 }} />
+                          <div className={styles.demographics}>
+                            <div className={styles.demoText}>humans</div>
+                            <div className={styles.demoText}>
+                              {calculateDemographics(location, 'humans')}
+                            </div>
+                          </div>
+                          <div style={{ width: 10 }} />
+                          <div className={styles.demographics}>
+                            <div className={styles.demoText}>robots</div>
+                            <div className={styles.demoText}>
+                              {calculateDemographics(location, 'robots')}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div>
+                        <div
+                          onClick={(e) => {
+                            e.preventDefault();
+                            setShowChars(!showChars);
+                          }}
+                        >
+                          {showChars
+                            ? 'hide all characters'
+                            : 'show all characters'}
+                        </div>
+                        {showChars &&
+                          location.residents.map((resident: any) => (
+                            <div key={resident.id}>
+                              <p>name {resident.name}</p>
+                              <p>species {resident.species}</p>
+                              <p>gender {resident.gender}</p>
+                              <p>status {resident.status}</p>
+                            </div>
+                          ))}
+                      </div>
+                    </>
                   )}
                 </div>
               )}

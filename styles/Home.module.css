@@ -51,6 +51,22 @@
 .cardHeader:hover {
   cursor: pointer;
 }
+
+.demographics {
+  align-items: center;
+  background: #4eacc5;
+  border-radius: 40px;
+  display: flex;
+  flex-direction: column;
+  height: 80px;
+  justify-content: center;
+  width: 80px;
+}
+
+.demoText {
+  color: white;
+}
+
 .footer {
   display: flex;
   flex: 1;
