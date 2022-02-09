@@ -4,7 +4,7 @@
 
 .main {
   min-height: 100vh;
-  padding: 4rem 0;
+  padding: 2rem 0;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -12,6 +12,45 @@
   align-items: center;
 }
 
+.list {
+  align-items: flex-start;
+  margin: 0 20vw;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 100vw;
+  max-width: 550px;
+}
+
+.listItem {
+  margin-left: 20px;
+  transition: 200ms;
+}
+
+.listItem:hover {
+  cursor: pointer;
+}
+
+.listCard {
+  background-color: #faf0ca;
+  padding: 20px;
+  width: 100%;
+  max-width: 550px;
+  box-shadow: inset 2px 2px 3px rgba(181, 181, 181, 0.25);
+  border-radius: 5px;
+  transition: 200ms;
+}
+
+.cardHeader {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.cardHeader:hover {
+  cursor: pointer;
+}
 .footer {
   display: flex;
   flex: 1;
@@ -40,9 +79,9 @@
 }
 
 .title {
-  margin: 0;
+  margin: 4rem 0;
   line-height: 1.15;
-  font-size: 4rem;
+  font-size: 1.5rem;
 }
 
 .title,
