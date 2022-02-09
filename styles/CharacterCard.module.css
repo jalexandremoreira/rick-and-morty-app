@@ -1,5 +1,15 @@
 .card {
   display: flex;
   flex-direction: row;
-  border-top: 80%;
+  width: 80%;
+  align-items: center;
+}
+
+.avatar {
+  border-radius: 60px;
+  overflow: hidden;
+  height: 100px;
+  width: 100px;
+  margin-right: 60px;
+  border: 4px solid black;
 }

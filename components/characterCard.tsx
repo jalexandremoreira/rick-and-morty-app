@@ -11,10 +11,22 @@ type Props = {
 function CharacterCard({ character }: Props) {
   return (
     <div key={character.id} className={styles.card}>
-      <p>name {character.name}</p>
-      <p>species {character.species}</p>
-      <p>gender {character.gender}</p>
-      <p>status {character.status}</p>
+      <div className={styles.avatar}>
+        <Image
+          src={character.image}
+          alt={character.name}
+          width="100%"
+          height="100%"
+        />
+      </div>
+      <div>
+        <h2>{character.name}</h2>
+        <p>
+          {character.species},&nbsp;
+          {character.gender}.&nbsp;
+          {character.status}
+        </p>
+      </div>
     </div>
   );
 }

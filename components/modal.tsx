@@ -29,7 +29,12 @@ function Modal({ buttonTitle, characters, title }: Props) {
         >
           <>
             {characters.map((character: Character, index: number) => (
-              <CharacterCard character={character} key={index} />
+              <div key={index} className={styles.cardContainer}>
+                <CharacterCard character={character} key={index} />
+                {index !== characters.length - 1 && (
+                  <div className={styles.seperator} />
+                )}
+              </div>
             ))}
           </>
         </PureModal>
