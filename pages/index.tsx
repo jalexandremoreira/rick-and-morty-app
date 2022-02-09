@@ -37,7 +37,8 @@ const Home = ({ locations }: Props) => {
         ? (humans += 1)
         : resident.species === 'Robot'
         ? (robots += 1)
-        : (aliens = +1);
+        : // confirmar que isto funciona. doest add up
+          (aliens = +1);
     });
 
     switch (type) {
@@ -251,6 +252,7 @@ const Home = ({ locations }: Props) => {
                       <Modal
                         characters={location?.residents}
                         buttonTitle="show all characters"
+                        title={location.name}
                       />
                     </>
                   )}

@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import PureModal from 'react-pure-modal';
+import 'react-pure-modal/dist/react-pure-modal.min.css';
 
 import styles from '../styles/Modal.module.css';
 import CharacterCard from '../components/characterCard';
@@ -6,36 +8,31 @@ import { Character } from '../types/character';
 
 type Props = {
   buttonTitle: string;
+  title: string;
   characters: Character[];
 };
 
-function Modal({ buttonTitle, characters }: Props) {
+function Modal({ buttonTitle, characters, title }: Props) {
   const [isVisible, setIsVisible] = useState(false);
-
-  //   {showChars &&
-  //     location.residents.map((resident: any) => (
-  //       <div key={resident.id}>
-  //         <p>name {resident.name}</p>
-  //         <p>species {resident.species}</p>
-  //         <p>gender {resident.gender}</p>
-  //         <p>status {resident.status}</p>
-  //       </div>
-  //     ))}
-  // </div>
 
   return (
     <>
       {isVisible ? (
-        <div className={styles.modal} onClick={() => setIsVisible(false)}>
-          <div
-            className={styles.modalInner}
-            onClick={(e) => e.preventDefault()}
-          >
+        <PureModal
+          header={title}
+          isOpen={isVisible}
+          width="600px"
+          onClose={() => {
+            setIsVisible(false);
+            return true;
+          }}
+        >
+          <>
             {characters.map((character: Character, index: number) => (
               <CharacterCard character={character} key={index} />
             ))}
-          </div>
-        </div>
+          </>
+        </PureModal>
       ) : (
         <div className={styles.button} onClick={() => setIsVisible(true)}>
           <span className={styles.cursor}>{buttonTitle}</span>
