@@ -8,13 +8,9 @@ import logo from '../public/images/logo.png';
 import Modal from '../components/modal';
 import styles from '../styles/Home.module.css';
 
-type Props = {
-  locations?: any;
-};
-
 const LOCATIONS_QUERY = gql`
-  query Locations {
-    locations {
+  query Locations($page: Int) {
+    locations(page: $page) {
       results {
         name
         dimension
@@ -36,41 +32,59 @@ const LOCATIONS_QUERY = gql`
         id
         type
       }
-    }
-  }
-`;
-
-const CHARACTERS_QUERY = gql`
-  query Locations {
-    characters {
-      results {
-        location {
-          id
-        }
-        origin {
-          id
-        }
+      info {
+        pages
+        next
+        prev
+        count
       }
     }
   }
 `;
 
-const Home = ({ locations }: Props) => {
+const Home = () => {
   const [selected, setSelected] = React.useState(0);
-  const locationsData = useQuery(LOCATIONS_QUERY);
-  const characters = useQuery(CHARACTERS_QUERY, {
+
+  const { loading, error, data, fetchMore } = useQuery(LOCATIONS_QUERY, {
     variables: {
-      offset: 0,
-      limit: 1000,
+      page: null,
     },
   });
-  const locations2 = locationsData?.data?.locations?.results;
-  // const [showChars, setShowChars] = React.useState(false);
 
-  console.log(characters);
+  const handleFetchMore = () => {
+    const nextPage = data?.locations?.info?.next;
+
+    if (!nextPage) {
+      return;
+    }
+
+    fetchMore({
+      variables: {
+        page: nextPage,
+      },
+      updateQuery: (prev: any, { fetchMoreResult }) => {
+        if (!fetchMoreResult) return prev;
+
+        const prevResults = prev?.locations?.results ?? [];
+        const nextResults = fetchMoreResult?.locations?.results ?? [];
+        const info = fetchMoreResult?.locations?.info ?? null;
+        const results = prevResults.concat(nextResults);
+
+        const next = {
+          ...prev,
+          locations: {
+            ...prev.locations,
+            results,
+            info,
+          },
+        };
+
+        return next;
+      },
+    });
+  };
 
   const calculateGuests = (location: any) => {
-    //isto está mal... tenho que fazer fetch aos characters todos e ver a localizacao vs residencia
     let count = 0;
 
     location?.residents.map((resident: any) => {
@@ -79,6 +93,8 @@ const Home = ({ locations }: Props) => {
 
     return count;
   };
+
+  error && console.log('error:', error);
 
   const calculateDemographics = (location: any, type: string) => {
     let humans = 0;
@@ -133,8 +149,8 @@ const Home = ({ locations }: Props) => {
         <h3 className={styles.title}>list of locations</h3>
 
         <div className={styles.list}>
-          {locations2 &&
-            locations2.map((location: any, index: number) => (
+          {data &&
+            data?.locations?.results.map((location: any, index: number) => (
               <div key={index} style={{ width: '100%' }}>
                 {selected !== location.id ? (
                   <div
@@ -316,6 +332,11 @@ const Home = ({ locations }: Props) => {
                 )}
               </div>
             ))}
+          {data?.locations?.info?.next && (
+            <button disabled={loading} onClick={() => handleFetchMore()}>
+              {!loading ? 'load more' : 'loading'}
+            </button>
+          )}
         </div>
       </main>
 
@@ -334,66 +355,3 @@ const Home = ({ locations }: Props) => {
 };
 
 export default Home;
-
-// export async function getStaticProps() {
-//   const { data } = await client.query({
-//     query: gql`
-//       query Characters {
-//         characters {
-//           results {
-//             name
-//             image
-//             id
-//             gender
-//             status
-//             species
-//           }
-//         }
-//       }
-//     `,
-//   });
-
-//   return {
-//     props: {
-//       characters: data.characters.results,
-//     },
-//   };
-// }
-
-// export async function getStaticProps() {
-//   const { data } = await client.query({
-//     query: gql`
-//       query Locations {
-//         locations {
-//           results {
-//             name
-//             dimension
-//             residents {
-//               gender
-//               location {
-//                 id
-//               }
-//               id
-//               image
-//               origin {
-//                 id
-//               }
-//               name
-//               species
-//               status
-//               type
-//             }
-//             id
-//             type
-//           }
-//         }
-//       }
-//     `,
-//   });
-
-//   return {
-//     props: {
-//       locations: data.locations.results,
-//     },
-//   };
-// }
