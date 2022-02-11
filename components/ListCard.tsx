@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import Modal from './Modal';
+import Modal from './modal';
 import styles from '../styles/ListCard.module.css';
 import { Character } from '../types/character';
 import { LabelIcon, LayerIcon, XIcon } from './Icons';
