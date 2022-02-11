@@ -12,6 +12,13 @@
   align-items: center;
 }
 
+.center {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  margin-top: 30px;
+}
+
 .list {
   align-items: flex-start;
   margin: 0 20vw;

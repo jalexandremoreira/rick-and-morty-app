@@ -205,7 +205,21 @@ const Home = () => {
               clear filters
             </div>
           </div>
+
+          {loading && (
+            <div className={styles.center}>
+              <h3 className={styles.title}>loading...</h3>
+            </div>
+          )}
+
+          {data?.locations?.results === undefined && !loading && (
+            <div className={styles.center}>
+              <h3>No results to show</h3>
+            </div>
+          )}
+
           {data &&
+            data?.locations?.results?.length !== 0 &&
             data?.locations?.results.map((location: any, index: number) => (
               <div key={index} style={{ width: '100%' }}>
                 {selected !== location.id ? (
@@ -389,14 +403,7 @@ const Home = () => {
               </div>
             ))}
           {data?.locations?.info?.next && (
-            <div
-              style={{
-                display: 'flex',
-                width: '100%',
-                justifyContent: 'center',
-                marginTop: '30px',
-              }}
-            >
+            <div className={styles.center}>
               <div
                 className={styles.button}
                 onClick={() => !loading && handleFetchMore()}
