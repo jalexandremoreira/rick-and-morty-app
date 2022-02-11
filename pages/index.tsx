@@ -5,7 +5,6 @@ import Image from 'next/image';
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 
-import { Character } from '../types/character';
 import { Location } from '../types/location';
 import { LOCATIONS_QUERY } from '../graphql/queries';
 import {
@@ -14,10 +13,9 @@ import {
   locationTypes,
   LocationType,
 } from '../types/locationFilters';
-import { LabelIcon, LayerIcon, XIcon } from '../components/icons';
 import logo from '../public/images/logo.png';
-import Modal from '../components/modal';
 import styles from '../styles/Home.module.css';
+import ListCard from '../components/ListCard';
 
 const Home = () => {
   const [selected, setSelected] = React.useState(0);
@@ -37,8 +35,6 @@ const Home = () => {
       },
     }
   );
-
-  console.log(data);
 
   const handleFetchMore = () => {
     const nextPage = data?.locations?.info?.next;
@@ -93,57 +89,7 @@ const Home = () => {
     });
   };
 
-  const calculateGuests = (location: Location) => {
-    let count = 0;
-
-    location?.residents.map((resident: Character) => {
-      resident.location.id !== resident.origin.id ? (count += 1) : null;
-    });
-
-    return count;
-  };
-
   error && console.log('error:', error);
-
-  const calculateDemographics = (location: Location, type: string) => {
-    let humans = 0;
-    let robots = 0;
-    let aliens = 0;
-
-    location?.residents.map((resident: Character) => {
-      resident.species === 'Human'
-        ? (humans += 1)
-        : resident.species === 'Robot'
-        ? (robots += 1)
-        : // confirmar que isto funciona. doest add up
-          (aliens = +1);
-    });
-
-    switch (type) {
-      case 'humans':
-        return humans;
-      case 'robots':
-        return robots;
-      default:
-        return aliens;
-    }
-  };
-
-  const calculateStatus = (location: Location, type: string) => {
-    let dead = 0;
-    let alive = 0;
-
-    location?.residents.map((resident: Character) => {
-      resident.status === 'Alive' ? (alive += 1) : (dead += 1);
-    });
-
-    switch (type) {
-      case 'dead':
-        return dead;
-      default:
-        return alive;
-    }
-  };
 
   return (
     <div className={styles.container}>
@@ -244,125 +190,12 @@ const Home = () => {
                       </h3>
                     </div>
                   ) : (
-                    <div className={styles.listCard} key={index}>
-                      <div
-                        onClick={() => setSelected(0)}
-                        className={styles.cardHeader}
-                      >
-                        <h3 style={{ margin: 0 }}>{location.name}</h3>
-                        <XIcon size={18} />
-                      </div>
-
-                      <div className={styles.cardLabels}>
-                        <LabelIcon size={18} />
-                        <div style={{ width: '10px' }} />
-                        {location.type === 'unknown' || location.type === ''
-                          ? 'Type unknown'
-                          : location.type}
-                      </div>
-                      <div className={styles.cardLabels}>
-                        <LayerIcon size={18} />
-                        <div style={{ width: '10px' }} />
-                        {location.dimension === 'unknown' ||
-                        location.type === ''
-                          ? 'Dimension unknown'
-                          : location.dimension}
-                      </div>
-
-                      <div className={styles.spacerV} />
-
-                      {selected === location.id && (
-                        <>
-                          <div className={styles.center}>
-                            <div className={styles.centerV}>
-                              <p>residents</p>
-                              <div
-                                style={{
-                                  display: 'flex',
-                                  flexDirection: 'row',
-                                }}
-                              >
-                                <div className={styles.demographics}>
-                                  <div className={styles.demoText}>total</div>
-                                  <div className={styles.demoText}>
-                                    {location.residents.length}
-                                  </div>
-                                </div>
-                                <div style={{ width: 10 }} />
-                                <div className={styles.demographics}>
-                                  <div className={styles.demoText}>alive</div>
-                                  <div className={styles.demoText}>
-                                    {calculateStatus(location, 'alive')}
-                                  </div>
-                                </div>
-                                <div style={{ width: 10 }} />
-                                <div className={styles.demographics}>
-                                  <div className={styles.demoText}>dead</div>
-                                  <div className={styles.demoText}>
-                                    {calculateStatus(location, 'dead')}
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-
-                            <div style={{ width: 60 }} />
-
-                            <div
-                              style={{
-                                display: 'flex',
-                                flexDirection: 'column',
-                                alignItems: 'center',
-                              }}
-                            >
-                              <p>guests</p>
-                              <div className={styles.demographics}>
-                                <div className={styles.demoText}>
-                                  {calculateGuests(location)}
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-
-                          <div className={styles.spacerV} />
-
-                          <div className={styles.centerV}>
-                            <p>resident demographics</p>
-                            <div
-                              style={{ display: 'flex', flexDirection: 'row' }}
-                            >
-                              <div className={styles.demographics}>
-                                <div className={styles.demoText}>aliens</div>
-                                <div className={styles.demoText}>
-                                  {calculateDemographics(location, 'aliens')}
-                                </div>
-                              </div>
-                              <div style={{ width: 10 }} />
-                              <div className={styles.demographics}>
-                                <div className={styles.demoText}>humans</div>
-                                <div className={styles.demoText}>
-                                  {calculateDemographics(location, 'humans')}
-                                </div>
-                              </div>
-                              <div style={{ width: 10 }} />
-                              <div className={styles.demographics}>
-                                <div className={styles.demoText}>robots</div>
-                                <div className={styles.demoText}>
-                                  {calculateDemographics(location, 'robots')}
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-
-                          <div className={styles.spacerV} />
-
-                          <Modal
-                            characters={location?.residents}
-                            buttonTitle="view all characters"
-                            title={location.name}
-                          />
-                        </>
-                      )}
-                    </div>
+                    <ListCard
+                      location={location}
+                      index={index}
+                      setSelected={setSelected}
+                      selected={selected}
+                    />
                   )}
                 </div>
               )
