@@ -1,10 +1,10 @@
 import * as React from 'react';
 
-import { Character } from '../types/character';
-import { LabelIcon, LayerIcon, XIcon } from './icons';
-import { Location } from '../types/location';
-import Modal from './modal';
+import Modal from './Modal';
 import styles from '../styles/ListCard.module.css';
+import { Character } from '../types/character';
+import { LabelIcon, LayerIcon, XIcon } from './Icons';
+import { Location } from '../types/location';
 
 type Props = {
   location: Location;

@@ -1,21 +1,21 @@
 import * as React from 'react';
-import { useQuery } from '@apollo/client';
+import Dropdown from 'react-dropdown';
 import Head from 'next/head';
 import Image from 'next/image';
-import Dropdown from 'react-dropdown';
+import { useQuery } from '@apollo/client';
 import 'react-dropdown/style.css';
 
-import { Location } from '../types/location';
+import ListCard from '../components/ListCard';
+import logo from '../public/images/logo.png';
+import styles from '../styles/Home.module.css';
 import { LOCATIONS_QUERY } from '../graphql/queries';
+import { Location } from '../types/location';
 import {
   locationDimensions,
   LocationDimension,
   locationTypes,
   LocationType,
 } from '../types/locationFilters';
-import logo from '../public/images/logo.png';
-import styles from '../styles/Home.module.css';
-import ListCard from '../components/ListCard';
 
 const Home = () => {
   const [selected, setSelected] = React.useState(0);

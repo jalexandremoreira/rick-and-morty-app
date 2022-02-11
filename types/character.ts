@@ -10,10 +10,10 @@ export type Character = {
   gender: string;
   id: number;
   image: string;
+  location: Location;
   name: string;
+  origin: Origin;
   species: string;
   status: string;
   type: string;
-  location: Location;
-  origin: Origin;
 };

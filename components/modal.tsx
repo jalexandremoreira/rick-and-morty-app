@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import PureModal from 'react-pure-modal';
 import 'react-pure-modal/dist/react-pure-modal.min.css';
 
+import CharacterCard from './CharacterCard';
 import styles from '../styles/Modal.module.css';
-import CharacterCard from '../components/characterCard';
 import { Character } from '../types/character';
 
 type Props = {

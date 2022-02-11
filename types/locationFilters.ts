@@ -1,169 +1,169 @@
 export const locationTypes = [
-  'Planet',
+  'Acid Plant',
+  'Arcade',
+  'Artificially generated world',
+  'Asteroid',
+  'Base',
+  'Box',
   'Cluster',
-  'Space station',
-  'Microverse',
-  'TV',
-  'Resort',
-  'Fantasy town',
-  'Dream',
-  'Dimension',
-  'unknown',
-  'Menagerie',
-  'Game',
+  'Consciousness',
+  'Convention',
+  'Country',
   'Customs',
   'Daycare',
+  'Death Star',
+  'Diegesis',
+  'Dimension',
+  'Dream',
   'Dwarf planet (Celestial Dwarf)',
-  'Miniverse',
-  'Teenyverse',
-  'Box',
-  'Spacecraft',
-  'Artificially generated world',
+  'Elemental Rings',
+  'Fantasy town',
+  'Game',
+  'Hell',
+  'Human',
+  'Liquid',
   'Machine',
-  'Arcade',
-  'Spa',
+  'Memory',
+  'Menagerie',
+  'Microverse',
+  'Miniverse',
+  'Mount',
+  'Nightmare',
+  'Non-Diegetic Alternative Reality',
+  'Planet',
+  'Police Department',
   'Quadrant',
   'Quasar',
-  'Mount',
-  'Liquid',
-  'Convention',
-  'Woods',
-  'Diegesis',
-  'Non-Diegetic Alternative Reality',
-  'Nightmare',
-  'Asteroid',
-  'Acid Plant',
   'Reality',
-  'Death Star',
-  'Base',
-  'Elemental Rings',
-  'Human',
+  'Resort',
+  'Spa',
+  'Space station',
   'Space',
-  'Hell',
-  'Police Department',
-  'Country',
-  'Consciousness',
-  'Memory',
+  'Spacecraft',
+  'TV',
+  'Teenyverse',
+  'Woods',
+  'unknown',
   '',
 ];
 
 export type LocationType =
-  | 'Planet'
+  | 'Acid Plant'
+  | 'Arcade'
+  | 'Artificially generated world'
+  | 'Asteroid'
+  | 'Base'
+  | 'Box'
   | 'Cluster'
-  | 'Space station'
-  | 'Microverse'
-  | 'TV'
-  | 'Resort'
-  | 'Fantasy town'
-  | 'Dream'
-  | 'Dimension'
-  | 'unknown'
-  | 'Menagerie'
-  | 'Game'
+  | 'Consciousness'
+  | 'Convention'
+  | 'Country'
   | 'Customs'
   | 'Daycare'
+  | 'Death Star'
+  | 'Diegesis'
+  | 'Dimension'
+  | 'Dream'
   | 'Dwarf planet (Celestial Dwarf)'
-  | 'Miniverse'
-  | 'Teenyverse'
-  | 'Box'
-  | 'Spacecraft'
-  | 'Artificially generated world'
+  | 'Elemental Rings'
+  | 'Fantasy town'
+  | 'Game'
+  | 'Hell'
+  | 'Human'
+  | 'Liquid'
   | 'Machine'
-  | 'Arcade'
-  | 'Spa'
+  | 'Memory'
+  | 'Menagerie'
+  | 'Microverse'
+  | 'Miniverse'
+  | 'Mount'
+  | 'Nightmare'
+  | 'Non-Diegetic Alternative Reality'
+  | 'Planet'
+  | 'Police Department'
   | 'Quadrant'
   | 'Quasar'
-  | 'Mount'
-  | 'Liquid'
-  | 'Convention'
-  | 'Woods'
-  | 'Diegesis'
-  | 'Non-Diegetic Alternative Reality'
-  | 'Nightmare'
-  | 'Asteroid'
-  | 'Acid Plant'
   | 'Reality'
-  | 'Death Star'
-  | 'Base'
-  | 'Elemental Rings'
-  | 'Human'
+  | 'Resort'
+  | 'Spa'
+  | 'Space station'
   | 'Space'
-  | 'Hell'
-  | 'Police Department'
-  | 'Country'
-  | 'Consciousness'
-  | 'Memory'
+  | 'Spacecraft'
+  | 'TV'
+  | 'Teenyverse'
+  | 'Woods'
+  | 'unknown'
   | ''
   | null;
 
 export const locationDimensions = [
-  'Dimension C-137',
-  'unknown',
-  'Replacement Dimension',
-  'Cronenberg Dimension',
-  'Fantasy Dimension',
-  'Dimension 5-126',
-  'Testicle Monster Dimension',
+  'Chair Dimension',
   'Cromulon Dimension',
+  'Cronenberg Dimension',
+  'Dimension 5-126',
+  'Dimension C-137',
+  'Dimension C-35',
   'Dimension C-500A',
-  'Dimension K-83',
-  'Dimension J19ζ7',
-  'Eric Stoltz Mask Dimension',
-  `Evil Rick's Target Dimension`,
-  'Giant Telepathic Spiders Dimension',
-  'Dimension K-22',
   'Dimension D-99',
   'Dimension D716',
   'Dimension D716-B',
   'Dimension D716-C',
   'Dimension J-22',
-  'Dimension C-35',
-  'Pizza Dimension',
-  'Phone Dimension',
-  'Chair Dimension',
+  'Dimension J19ζ7',
+  'Dimension K-22',
+  'Dimension K-83',
+  'Eric Stoltz Mask Dimension',
+  'Fantasy Dimension',
   'Fascist Dimension',
   'Fascist Shrimp Dimension',
   'Fascist Teddy Bear Dimension',
-  'Wasp Dimension',
-  'Tusk Dimension',
+  'Giant Telepathic Spiders Dimension',
   'Magic Dimension',
   'Merged Dimension',
+  'Phone Dimension',
+  'Pizza Dimension',
+  'Replacement Dimension',
+  'Testicle Monster Dimension',
+  'Tusk Dimension',
   'Unknown dimension',
+  'Wasp Dimension',
+  'unknown',
+  `Evil Rick's Target Dimension`,
   '',
 ];
 
 export type LocationDimension =
-  | 'Dimension C-137'
-  | 'unknown'
-  | 'Replacement Dimension'
-  | 'Cronenberg Dimension'
-  | 'Fantasy Dimension'
-  | 'Dimension 5-126'
-  | 'Testicle Monster Dimension'
+  | 'Chair Dimension'
   | 'Cromulon Dimension'
+  | 'Cronenberg Dimension'
+  | 'Dimension 5-126'
+  | 'Dimension C-137'
+  | 'Dimension C-35'
   | 'Dimension C-500A'
-  | 'Dimension K-83'
-  | 'Dimension J19ζ7'
-  | 'Eric Stoltz Mask Dimension'
-  | `Evil Rick's Target Dimension`
-  | 'Giant Telepathic Spiders Dimension'
-  | 'Dimension K-22'
   | 'Dimension D-99'
   | 'Dimension D716'
   | 'Dimension D716-B'
   | 'Dimension D716-C'
   | 'Dimension J-22'
-  | 'Dimension C-35'
-  | 'Pizza Dimension'
-  | 'Phone Dimension'
-  | 'Chair Dimension'
+  | 'Dimension J19ζ7'
+  | 'Dimension K-22'
+  | 'Dimension K-83'
+  | 'Eric Stoltz Mask Dimension'
+  | 'Fantasy Dimension'
   | 'Fascist Dimension'
   | 'Fascist Shrimp Dimension'
   | 'Fascist Teddy Bear Dimension'
-  | 'Wasp Dimension'
-  | 'Tusk Dimension'
+  | 'Giant Telepathic Spiders Dimension'
   | 'Magic Dimension'
   | 'Merged Dimension'
+  | 'Phone Dimension'
+  | 'Pizza Dimension'
+  | 'Replacement Dimension'
+  | 'Testicle Monster Dimension'
+  | 'Tusk Dimension'
   | 'Unknown dimension'
+  | 'Wasp Dimension'
+  | 'unknown'
+  | `Evil Rick's Target Dimension`
   | ''
   | null;
