@@ -1,14 +1,14 @@
 type Location = {
-  id: string;
+  id: number;
 };
 
 type Origin = {
-  id: string;
+  id: number;
 };
 
 export type Character = {
   gender: string;
-  id: string;
+  id: number;
   image: string;
   name: string;
   species: string;

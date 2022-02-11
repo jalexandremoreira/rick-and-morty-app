@@ -16,16 +16,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
 }
 
 .centerV {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-.fullWidth {
-  width: 100%;
 }
 
 .list {
@@ -101,16 +98,16 @@
   align-items: center;
 }
 
+.dropdown {
+  width: 250px;
+}
+
 .button {
   color: #4eacc5;
 }
 
 .button:hover {
   cursor: pointer;
-}
-
-.dropdown {
-  width: 250px;
 }
 
 .demoText {
