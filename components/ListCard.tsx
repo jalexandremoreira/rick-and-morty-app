@@ -15,11 +15,18 @@ type Props = {
 
 const ListCard = ({ location, index, setSelected, selected }: Props) => {
   const calculateStatus = (location: Location, type: string) => {
-    let dead = 0;
     let alive = 0;
+    let dead = 0;
 
     location?.residents.map((resident: Character) => {
-      resident.status === 'Alive' ? (alive += 1) : (dead += 1);
+      switch (resident.status) {
+        case 'Alive':
+          return (alive += 1);
+        case 'Dead':
+          return (dead += 1);
+        default:
+          null;
+      }
     });
 
     switch (type) {
@@ -46,12 +53,14 @@ const ListCard = ({ location, index, setSelected, selected }: Props) => {
     let aliens = 0;
 
     location?.residents.map((resident: Character) => {
-      resident.species === 'Human'
-        ? (humans += 1)
-        : resident.species === 'Robot'
-        ? (robots += 1)
-        : // confirmar que isto funciona. doest add up
-          (aliens = +1);
+      switch (resident.species) {
+        case 'Human':
+          return (humans += 1);
+        case 'Robot':
+          return (robots += 1);
+        default:
+          return (aliens += 1);
+      }
     });
 
     switch (type) {
