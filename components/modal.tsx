@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PureModal from 'react-pure-modal';
 import 'react-pure-modal/dist/react-pure-modal.min.css';
 
-import CharacterCard from './CharacterCard';
+import CharacterCard from './characterCard';
 import styles from '../styles/Modal.module.css';
 import { Character } from '../types/character';
 
