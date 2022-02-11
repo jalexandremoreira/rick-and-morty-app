@@ -67,6 +67,29 @@
   width: 80px;
 }
 
+.dropdownList {
+  margin-bottom: 1rem;
+  margin-left: 20px;
+}
+
+.dropdownRow {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.button {
+  color: #4eacc5;
+}
+
+.button:hover {
+  cursor: pointer;
+}
+
+.dropdown {
+  width: 250px;
+}
+
 .demoText {
   color: white;
 }

@@ -1,55 +1,39 @@
 import * as React from 'react';
-import { gql, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import Head from 'next/head';
 import Image from 'next/image';
+import Dropdown from 'react-dropdown';
+import 'react-dropdown/style.css';
 
-// import client from '../apollo-client';
+import { LOCATIONS_QUERY } from '../graphql/queries';
+import {
+  locationDimensions,
+  LocationDimension,
+  locationTypes,
+  LocationType,
+} from '../types/locationFilters';
 import logo from '../public/images/logo.png';
 import Modal from '../components/modal';
 import styles from '../styles/Home.module.css';
 
-const LOCATIONS_QUERY = gql`
-  query Locations($page: Int) {
-    locations(page: $page) {
-      results {
-        name
-        dimension
-        residents {
-          gender
-          location {
-            id
-          }
-          id
-          image
-          origin {
-            id
-          }
-          name
-          species
-          status
-          type
-        }
-        id
-        type
-      }
-      info {
-        pages
-        next
-        prev
-        count
-      }
-    }
-  }
-`;
-
 const Home = () => {
   const [selected, setSelected] = React.useState(0);
+  const [typeFilter, setTypeFilter] = React.useState<LocationType>(null);
+  const [dimensionFilter, setDimensionFilter] =
+    React.useState<LocationDimension>(null);
 
-  const { loading, error, data, fetchMore } = useQuery(LOCATIONS_QUERY, {
-    variables: {
-      page: null,
-    },
-  });
+  const { loading, error, data, fetchMore, refetch } = useQuery(
+    LOCATIONS_QUERY,
+    {
+      variables: {
+        page: null,
+        filter: {
+          type: typeFilter,
+          dimension: dimensionFilter,
+        },
+      },
+    }
+  );
 
   const handleFetchMore = () => {
     const nextPage = data?.locations?.info?.next;
@@ -61,6 +45,10 @@ const Home = () => {
     fetchMore({
       variables: {
         page: nextPage,
+        filter: {
+          type: typeFilter,
+          dimension: dimensionFilter,
+        },
       },
       updateQuery: (prev: any, { fetchMoreResult }) => {
         if (!fetchMoreResult) return prev;
@@ -80,6 +68,22 @@ const Home = () => {
         };
 
         return next;
+      },
+    });
+  };
+
+  const handleRefetch = (
+    typeValue: LocationType,
+    dimensionValue: LocationDimension
+  ) => {
+    setTypeFilter(typeValue);
+    setDimensionFilter(dimensionValue);
+
+    refetch({
+      page: null,
+      filter: {
+        type: typeValue === null ? null : typeFilter,
+        dimension: dimensionValue === null ? null : dimensionFilter,
       },
     });
   };
@@ -149,6 +153,58 @@ const Home = () => {
         <h3 className={styles.title}>list of locations</h3>
 
         <div className={styles.list}>
+          <div className={styles.dropdownList}>
+            <div className={styles.dropdownRow}>
+              <Dropdown
+                className={styles.dropdown}
+                options={locationTypes}
+                onChange={(e) =>
+                  handleRefetch(e.value as LocationType, dimensionFilter)
+                }
+                value={typeFilter === null ? 'filter by type' : typeFilter}
+                placeholder="filter by type"
+              />
+              <div
+                className={styles.button}
+                style={{ marginLeft: '10px' }}
+                onClick={() => {
+                  handleRefetch(null, dimensionFilter);
+                }}
+              >
+                clear
+              </div>
+            </div>
+            <div style={{ height: '10px' }} />
+            <div className={styles.dropdownRow}>
+              <Dropdown
+                className={styles.dropdown}
+                options={locationDimensions}
+                onChange={(e) =>
+                  handleRefetch(typeFilter, e.value as LocationDimension)
+                }
+                value={
+                  dimensionFilter === null
+                    ? 'filter by dimension'
+                    : dimensionFilter
+                }
+                placeholder="filter by dimension"
+              />
+              <div
+                className={styles.button}
+                style={{ marginLeft: '10px' }}
+                onClick={() => handleRefetch(typeFilter, null)}
+              >
+                clear
+              </div>
+            </div>
+            <div style={{ height: '10px' }} />
+            <div
+              className={styles.button}
+              onClick={() => handleRefetch(null, null)}
+            >
+              clear filters
+            </div>
+          </div>
           {data &&
             data?.locations?.results.map((location: any, index: number) => (
               <div key={index} style={{ width: '100%' }}>
@@ -333,9 +389,21 @@ const Home = () => {
               </div>
             ))}
           {data?.locations?.info?.next && (
-            <button disabled={loading} onClick={() => handleFetchMore()}>
-              {!loading ? 'load more' : 'loading'}
-            </button>
+            <div
+              style={{
+                display: 'flex',
+                width: '100%',
+                justifyContent: 'center',
+                marginTop: '30px',
+              }}
+            >
+              <div
+                className={styles.button}
+                onClick={() => !loading && handleFetchMore()}
+              >
+                {!loading ? 'load more' : 'loading'}
+              </div>
+            </div>
           )}
         </div>
       </main>
