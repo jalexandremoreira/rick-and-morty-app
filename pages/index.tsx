@@ -119,7 +119,10 @@ const Home = () => {
                 className={styles.button}
                 style={{ marginLeft: '10px' }}
                 onClick={() => {
-                  handleRefetch(null, dimensionFilter);
+                  {
+                    setSelected(0);
+                    handleRefetch(null, dimensionFilter);
+                  }
                 }}
               >
                 clear
@@ -143,13 +146,16 @@ const Home = () => {
               <div
                 className={styles.button}
                 style={{ marginLeft: '10px' }}
-                onClick={() => handleRefetch(typeFilter, null)}
+                onClick={() => {
+                  setSelected(0);
+                  handleRefetch(typeFilter, null);
+                }}
               >
                 clear
               </div>
             </div>
             <div style={{ height: '10px' }} />
-            <div
+            <span
               className={styles.button}
               onClick={() => {
                 setSelected(0);
@@ -157,7 +163,7 @@ const Home = () => {
               }}
             >
               clear filters
-            </div>
+            </span>
           </div>
 
           {loading && (
