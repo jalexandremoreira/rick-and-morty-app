@@ -3,7 +3,7 @@ import * as React from 'react';
 import Modal from './modal';
 import styles from '../styles/ListCard.module.css';
 import { Character } from '../types/character';
-import { LabelIcon, LayerIcon, XIcon } from './Icons';
+import { LabelIcon, LayerIcon, XIcon } from './icons';
 import { Location } from '../types/location';
 
 type Props = {
