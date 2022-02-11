@@ -205,7 +205,10 @@ const Home = () => {
             <div style={{ height: '10px' }} />
             <div
               className={styles.button}
-              onClick={() => handleRefetch(null, null)}
+              onClick={() => {
+                setSelected(0);
+                handleRefetch(null, null);
+              }}
             >
               clear filters
             </div>
@@ -253,12 +256,17 @@ const Home = () => {
                       <div className={styles.cardLabels}>
                         <LabelIcon size={18} />
                         <div style={{ width: '10px' }} />
-                        {location.type}
+                        {location.type === 'unknown' || location.type === ''
+                          ? 'Type unknown'
+                          : location.type}
                       </div>
                       <div className={styles.cardLabels}>
                         <LayerIcon size={18} />
                         <div style={{ width: '10px' }} />
-                        {location.dimension}
+                        {location.dimension === 'unknown' ||
+                        location.type === ''
+                          ? 'Dimension unknown'
+                          : location.dimension}
                       </div>
 
                       <div className={styles.spacerV} />
@@ -349,7 +357,7 @@ const Home = () => {
 
                           <Modal
                             characters={location?.residents}
-                            buttonTitle="show all characters"
+                            buttonTitle="view all characters"
                             title={location.name}
                           />
                         </>

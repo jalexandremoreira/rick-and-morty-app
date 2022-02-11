@@ -39,8 +39,17 @@ function Modal({ buttonTitle, characters, title }: Props) {
           </>
         </PureModal>
       ) : (
-        <div className={styles.button} onClick={() => setIsVisible(true)}>
-          <span className={styles.cursor}>{buttonTitle}</span>
+        <div
+          className={styles.button}
+          onClick={() => {
+            characters && characters.length !== 0 ? setIsVisible(true) : null;
+          }}
+        >
+          <span className={styles.cursor}>
+            {characters && characters.length !== 0
+              ? buttonTitle
+              : '(no characters to show)'}
+          </span>
         </div>
       )}
     </>

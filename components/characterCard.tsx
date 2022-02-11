@@ -22,9 +22,17 @@ function CharacterCard({ character }: Props) {
       <div>
         <h2>{character.name}</h2>
         <p>
-          {character.species},&nbsp;
-          {character.gender}.&nbsp;
-          {character.status}
+          {character.species === 'unknown' || character.species === ''
+            ? 'Species unknown'
+            : character.species}
+          ,&nbsp;
+          {character.gender === 'unknown' || character.gender === ''
+            ? 'Gender unknown'
+            : character.gender}
+          ,&nbsp;
+          {character.status === 'unknown' || character.status === ''
+            ? 'Status unknown'
+            : character.status}
         </p>
       </div>
     </div>
